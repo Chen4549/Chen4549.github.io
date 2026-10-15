@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Neil (Hsuan-Chih) Chen</title>
+<meta name="description" content="Neil (Hsuan-Chih) Chen, medical AI researcher at the University of Pennsylvania. Multimodal learning, agentic systems, interpretability and safety.">
+<meta property="og:title" content="Neil (Hsuan-Chih) Chen">
+<meta property="og:description" content="Medical AI researcher at the University of Pennsylvania. Multimodal learning, agentic systems, interpretability and safety.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23e9ecf2' stroke='%23c3d3ea' stroke-width='3'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='28' fill='%230f1320'%3Enc%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one centered column of liquid-glass panels floating over a slow, softly lit color field; floating pill nav. */
+:root{
+  --ground:#e9ecf2;
+  --ink:#0f1320; --ink-2:#454c60; --ink-3:#737a8e;
+  --accent:#2f5bd3;
+  --orb-1:#c3d3ea; --orb-2:#dbd2ea; --orb-3:#eedfd5; --orb-4:#cfe3dc;
+  --glass:rgba(255,255,255,.24); --glass-strong:rgba(255,255,255,.5);
+  --rim:rgba(255,255,255,.95); --rim-low:rgba(255,255,255,.35);
+  --edge:rgba(40,52,90,.10);
+  --shadow:rgba(28,36,72,.22); --sheen:rgba(255,255,255,.95); --halo:rgba(110,140,220,.20);
+  --f-sans:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  --f-serif:"DM Serif Display","Iowan Old Style",Georgia,serif;
+  --f-mono:"DM Mono",ui-monospace,"SF Mono",Consolas,monospace;
+  --r-lg:32px; --r-md:22px;
+  color-scheme:light;
+}
+/* Light is the default; dark applies only when the visitor picks it with the toggle */
+:root[data-theme="dark"]{
+  --ground:#0a0b10; --ink:#eef1f8; --ink-2:#b2b8c9; --ink-3:#7f879b; --accent:#8fb0ff;
+  --orb-1:#27344f; --orb-2:#372f4a; --orb-3:#46343b; --orb-4:#24403b;
+  --glass:rgba(255,255,255,.06); --glass-strong:rgba(255,255,255,.12);
+  --rim:rgba(255,255,255,.26); --rim-low:rgba(255,255,255,.06);
+  --edge:rgba(255,255,255,.03);
+  --shadow:rgba(0,0,0,.55); --sheen:rgba(255,255,255,.14); --halo:rgba(140,170,255,.06); color-scheme:dark;}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:110px}
+body{margin:0;background:var(--ground);color:var(--ink);font:400 16px/1.6 var(--f-sans);-webkit-font-smoothing:antialiased;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+
+/* ---------- light field behind the glass ---------- */
+.field{position:fixed;inset:-10%;z-index:-1;overflow:hidden;filter:blur(70px)}
+.field i{position:absolute;border-radius:50%;opacity:.7;animation:drift 28s ease-in-out infinite alternate}
+.field i:nth-child(1){width:52vmax;height:52vmax;left:-8%;top:-12%;background:var(--orb-1)}
+.field i:nth-child(2){width:44vmax;height:44vmax;right:-10%;top:8%;background:var(--orb-2);animation-duration:34s;animation-delay:-6s}
+.field i:nth-child(3){width:40vmax;height:40vmax;left:20%;bottom:-18%;background:var(--orb-3);animation-duration:31s;animation-delay:-12s}
+.field i:nth-child(4){width:30vmax;height:30vmax;right:12%;bottom:4%;background:var(--orb-4);animation-duration:26s;animation-delay:-3s}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(6vmax,4vmax) scale(1.08)}100%{transform:translate(-4vmax,7vmax) scale(.95)}}
+.grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ---------- liquid glass material ---------- */
+.glass{position:relative;isolation:isolate;background:var(--glass);border-radius:var(--r-lg);
+  -webkit-backdrop-filter:blur(22px) saturate(125%);backdrop-filter:blur(22px) saturate(125%);
+  box-shadow:inset 0 1px 0 var(--rim),inset 0 -1px 0 var(--rim-low),inset 1px 0 0 var(--rim-low),inset -1px 0 0 var(--rim-low),
+    inset 0 0 24px rgba(255,255,255,.06),0 0 0 1px var(--edge),0 1px 1px rgba(0,0,0,.04),0 24px 48px -24px var(--shadow)}
+/* rim light: a gradient hairline that is brighter at the top-left, like light catching a lens edge */
+.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:1;
+  background:linear-gradient(140deg,var(--rim) 0%,transparent 38%,transparent 62%,var(--rim-low) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+/* specular sheen that follows the pointer */
+.glass::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;
+  background:radial-gradient(220px circle at var(--mx,20%) var(--my,0%),var(--sheen),transparent 70%),
+    radial-gradient(480px circle at var(--mx,20%) var(--my,0%),var(--halo),transparent 65%);opacity:.85;transition:opacity .4s}
+
+/* ---------- nav ---------- */
+.nav-wrap{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;justify-content:center;padding-block:18px}
+nav.glass{display:flex;align-items:center;gap:4px;padding:6px;border-radius:999px;max-width:100%;overflow-x:auto;scrollbar-width:none}
+nav .mono{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;font:italic 400 1.15rem var(--f-serif);background:var(--glass-strong);flex:none;text-decoration:none}
+nav a.link{padding:8px 14px;border-radius:999px;text-decoration:none;font-size:.88rem;color:var(--ink-2);white-space:nowrap;transition:background .25s,color .25s}
+nav a.link:hover{background:var(--glass-strong);color:var(--ink)}
+nav button{flex:none;width:38px;height:38px;border-radius:50%;border:0;background:transparent;color:var(--ink-2);cursor:pointer;display:grid;place-items:center}
+nav button:hover{background:var(--glass-strong);color:var(--ink)}
+
+main{max-width:980px;margin:0 auto;display:grid;gap:28px}
+section{display:grid;gap:18px}
+.label{font:500 .72rem var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding-left:6px}
+h2{font:400 2.2rem/1.12 var(--f-serif);margin:0;padding-left:4px;letter-spacing:-.01em;text-wrap:balance}
+h2 em{font-style:italic;color:var(--accent)}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;padding:52px 52px 46px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:500 .78rem var(--f-mono);letter-spacing:.06em;color:var(--ink-2);
+  padding:6px 12px 6px 10px;border-radius:999px;background:var(--glass-strong)}
+.eyebrow .dot{width:7px;height:7px;border-radius:50%;background:#34c759;box-shadow:0 0 0 3px rgba(52,199,89,.2)}
+h1{font:300 clamp(2.6rem,6.4vw,4.6rem)/1 var(--f-sans);letter-spacing:-.04em;margin:22px 0 18px}
+h1 em{font:italic 400 1.08em/1 var(--f-serif);letter-spacing:-.02em}
+h1 .given{color:var(--ink-3);font-size:.62em;letter-spacing:-.03em;white-space:nowrap}
+.schools{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:1rem;color:var(--ink-2)}
+.schools .date{font:500 .76rem var(--f-mono);color:var(--ink-3);margin-left:8px;white-space:nowrap}
+.tagline{margin:0;max-width:52ch;font-size:1.08rem;color:var(--ink-2)}
+.tagline b{color:var(--ink);font-weight:500}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;text-decoration:none;font-size:.9rem;font-weight:500;
+  background:var(--glass-strong);transition:transform .2s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--ink);color:var(--ground);box-shadow:0 10px 24px -12px var(--shadow)}
+.btn svg{width:16px;height:16px}
+.portrait{width:220px;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-align:center;
+  font:500 .72rem var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.portrait.glass{border-radius:50%;background:var(--glass-strong);padding:6px}
+.portrait img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;transition:transform .35s ease}
+button.portrait{border:0;font:inherit;color:inherit;cursor:zoom-in}
+button.portrait:hover img{transform:scale(1.03)}
+.lightbox{border:0;padding:0;background:transparent;max-width:min(92vw,560px);max-height:92vh;overflow:visible}
+.lightbox::backdrop{background:rgba(12,16,28,.45);-webkit-backdrop-filter:blur(18px) saturate(120%);backdrop-filter:blur(18px) saturate(120%)}
+.lightbox[open]{animation:pop .3s ease}
+@keyframes pop{from{opacity:0;transform:scale(.96)}}
+.lightbox img{display:block;width:auto;height:auto;max-width:100%;max-height:88vh;object-fit:contain;border-radius:26px;box-shadow:0 30px 80px -20px rgba(0,0,0,.6);cursor:zoom-out}
+.lightbox .close{position:absolute;top:12px;right:12px;width:40px;height:40px;border:0;border-radius:50%;display:grid;place-items:center;color:#fff;cursor:pointer;
+  background:rgba(255,255,255,.18)}
+.portrait span{display:grid;gap:6px;justify-items:center}
+.portrait svg{width:34px;height:34px;opacity:.6}
+
+/* ---------- about ---------- */
+.about{padding:34px 40px;border-radius:var(--r-md);display:grid;gap:12px;font-size:1.02rem;color:var(--ink-2)}
+.about p{margin:0;max-width:65ch}
+.about ul{margin:0 0 6px;padding:0;list-style:none;display:grid;gap:6px}
+.about li{position:relative;padding-left:22px;color:var(--ink)}
+.about li::before{content:"";position:absolute;left:4px;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.75}
+.about a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+.about a:hover{border-bottom-color:currentColor}
+
+/* ---------- research ---------- */
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tile{padding:26px 24px 24px;border-radius:var(--r-md);display:grid;gap:10px;align-content:start}
+.tile .ic{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:var(--glass-strong)}
+.tile .ic svg{width:22px;height:22px}
+.tile h3{margin:6px 0 0;font-size:1.08rem;font-weight:500;letter-spacing:-.01em}
+.tile p{margin:0;font-size:.92rem;color:var(--ink-2)}
+
+/* ---------- publications ---------- */
+.pubs{padding:10px 30px}
+.pub{display:grid;grid-template-columns:1fr auto;gap:6px 24px;padding:22px 0;border-top:1px solid var(--rim-low)}
+.pub:first-child{border-top:0}
+.pub h3{margin:0;font-size:1.06rem;font-weight:500;letter-spacing:-.01em;text-wrap:balance}
+.pub h3 a{text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .3s}
+.pub h3 a:hover{background-size:100% 1px}
+.pub .meta{grid-column:1;font-size:.88rem;color:var(--ink-2)}
+.pub .mods{grid-column:1;display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.pub .mods span{font:500 .68rem var(--f-mono);letter-spacing:.05em;padding:3px 9px;border-radius:999px;background:var(--glass-strong);color:var(--ink-2)}
+.status{grid-column:2;grid-row:1;align-self:start;font:500 .7rem var(--f-mono);letter-spacing:.05em;white-space:nowrap;padding:5px 11px;border-radius:999px;background:var(--glass-strong)}
+.status::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:7px;vertical-align:1px;background:currentColor}
+.s-rev{color:#c27a00}.s-prep{color:#2f5bd3}.s-run{color:#1f9d55}
+:root[data-theme="dark"] .s-rev{color:#ffc56b}:root[data-theme="dark"] .s-prep{color:#8fb0ff}:root[data-theme="dark"] .s-run{color:#5fdc93}
+/* ---------- path ---------- */
+.path{padding:12px 30px}
+.step{display:grid;grid-template-columns:130px 1fr;gap:6px 24px;padding:22px 0;border-top:1px solid var(--rim-low)}
+.step:first-child{border-top:0}
+.step .when{font:500 .78rem var(--f-mono);color:var(--ink-3);padding-top:3px;font-variant-numeric:tabular-nums}
+.step h3{margin:0;font-size:1.04rem;font-weight:500}
+.step p{margin:2px 0 0;font-size:.92rem;color:var(--ink-2)}
+.step p a{color:var(--accent);text-decoration:none}
+.step p a:hover{text-decoration:underline}
+
+/* ---------- contact ---------- */
+.contact{padding:44px 48px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.contact h2{padding:0}
+.contact p{margin:8px 0 0;color:var(--ink-2)}
+.mail{font:500 .95rem var(--f-mono);word-break:break-all}
+footer{max-width:980px;margin:28px auto 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font:400 .78rem var(--f-mono);color:var(--ink-3);padding-inline:8px}
+
+@media (max-width:820px){
+  .tiles{grid-template-columns:1fr}
+  .hero{grid-template-columns:1fr;padding:34px 26px}
+  .portrait{width:150px;grid-row:1}
+  .contact{grid-template-columns:1fr;padding:32px 26px}
+  .about{padding:26px 24px}
+  .pubs,.path{padding:4px 22px}
+  .step{grid-template-columns:1fr}
+  .pub{grid-template-columns:1fr}.status{grid-column:1;grid-row:auto;justify-self:start}
+  nav a.link{padding:8px 10px}
+  h2{font-size:2rem}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="field" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="nav-wrap">
+  <nav class="glass" aria-label="Main">
+    <a class="mono" href="#top" aria-label="Home">nc</a>
+    <a class="link" href="#about">About</a>
+    <a class="link" href="#research">Research</a>
+    <a class="link" href="#work">Publications</a>
+    <a class="link" href="#path">Experience</a>
+    <a class="link" href="#contact">Contact</a>
+    <button id="theme" type="button" aria-label="Toggle light or dark mode">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+    </button>
+  </nav>
+</div>
+
+<main id="top">
+  <section class="hero glass">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>Researcher · University of Pennsylvania</span>
+      <h1>Neil <span class="given">(Hsuan-Chih)</span> <em>Chen</em></h1>
+      <ul class="schools">
+        <li>Researcher, University of Pennsylvania <span class="date">June 2026 – now</span></li>
+        <li>M.S. in Data Science, New York University <span class="date">May 2026</span></li>
+        <li>B.A. in Math and Stat, University of Minnesota – Twin Cities <span class="date">May 2023</span></li>
+      </ul>
+      <div class="actions">
+        <a class="btn primary" href="mailto:hsuan-chih.chen@pennmedicine.upenn.edu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>Email</a>
+        <a class="btn" href="https://scholar.google.com/citations?hl=en&amp;user=hdYqXmkAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+        <!-- Add links here when ready, e.g.
+        <a class="btn" href="cv.pdf">CV</a>
+        <a class="btn" href="https://github.com/XXXX" target="_blank" rel="noopener">GitHub</a>
+        -->
+      </div>
+    </div>
+    <button class="portrait glass" id="photo-open" type="button" aria-label="View full photo"><img src="images/headshot.jpg" alt="Neil (Hsuan-Chih) Chen in front of the New York City skyline at night" width="800" height="800"></button>
+    <dialog id="photo" class="lightbox" aria-label="Full photo">
+      <img src="images/headshot-full.jpg" alt="Neil (Hsuan-Chih) Chen in front of the New York City skyline at night" width="1500" height="2000" loading="lazy">
+      <button class="close glass" type="button" aria-label="Close">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </dialog>
+  </section>
+
+  <section id="about">
+    <h2>About <em>Me</em></h2>
+    <div class="about glass">
+      <p>Hi, I'm from Taiwan and have studied in the US for almost a decade.</p>
+      <p>I've been doing research in the medical AI field, and the following are my focuses:</p>
+      <ul>
+        <li>Multimodal learning</li>
+        <li>Agentic systems</li>
+        <li>Model interpretability &amp; safety</li>
+      </ul>
+      <p>The following are the professors I've worked with or am currently working with:</p>
+      <ul>
+        <li><a href="https://seyiqi.github.io/" target="_blank" rel="noopener">Dr. Yiqiu (Artie) Shen, New York University</a></li>
+        <li><a href="https://tianyuhan.ai/" target="_blank" rel="noopener">Dr. Tianyu Han, University of Pennsylvania</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="research">
+    <h2>Research <em>Interests</em></h2>
+    <div class="tiles">
+      <article class="tile glass">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="9" r="4.5"/><circle cx="16" cy="9" r="4.5"/><circle cx="12" cy="15.5" r="4.5"/></svg></span>
+        <h3>Multimodal learning</h3>
+        <p>Utilizing multiple modalities, such as MRI, mammography, ultrasound, X-ray and clinical records, to improve models.</p>
+      </article>
+      <article class="tile glass">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/><path d="M11 7.5h3.5a2 2 0 0 1 2 2V13M13 16.5H9.5a2 2 0 0 1-2-2V11"/></svg></span>
+        <h3>Agentic systems</h3>
+        <p>Clinical agents that reason across radiology reports, patient history and medical imaging to support diagnosis and prognosis.</p>
+      </article>
+      <article class="tile glass">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <h3>Interpretability &amp; safety</h3>
+        <p>Interpreting the reasoning behind model decisions and exposing vulnerabilities in medical agent systems.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="work">
+    <span class="label">Publications &amp; projects</span>
+    <h2>Selected <em>work</em></h2>
+    <div class="pubs glass">
+      <article class="pub">
+        <h3><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13060985/" target="_blank" rel="noopener">Diagnosis of Multiple Sclerosis Using Multimodal Deep Learning</a></h3>
+        <span class="status s-rev">Under revision · JAMA Neurology</span>
+        <span class="meta">With Dr. Yiqiu Shen, NYU · Preprint on PubMed Central</span>
+        <div class="mods"><span>MRI</span><span>Clinical data</span></div>
+      </article>
+      <article class="pub">
+        <h3>Multimodal Deep Learning for Breast Cancer Diagnosis Using Longitudinal 2D and 3D Mammography and Ultrasound</h3>
+        <span class="status s-prep">In preparation</span>
+        <span class="meta">With Dr. Yiqiu Shen, NYU</span>
+        <div class="mods"><span>FFDM (2D)</span><span>DBT (3D)</span><span>Ultrasound</span><span>Longitudinal</span><span>Clinical data</span></div>
+      </article>
+      <article class="pub">
+        <h3>Towards Auditable Clinical Decision-Making with a One Decision Model, Jev</h3>
+        <span class="status s-prep">In preparation</span>
+        <span class="meta">An explainable, fast and low-cost agent over electronic health records</span>
+        <div class="mods"><span>EHR</span><span>Agents</span></div>
+      </article>
+      <article class="pub">
+        <h3>RL-Optimized Prompt-Injection Attacks Against Medical Agents</h3>
+        <span class="status s-run">Ongoing</span>
+        <span class="meta">With Dr. Tianyu Han, University of Pennsylvania</span>
+        <div class="mods"><span>Agents</span><span>Safety</span><span>Reinforcement learning</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="path">
+    <span class="label">Experience &amp; education</span>
+    <h2>The <em>path</em> so far</h2>
+    <div class="path glass">
+      <div class="step"><span class="when">June 2026 – now</span><div><h3>Researcher, University of Pennsylvania</h3>
+        <p>Working with <a href="https://tianyuhan.ai/" target="_blank" rel="noopener">Dr. Tianyu Han</a> on the safety of medical AI agents.</p></div></div>
+      <div class="step"><span class="when">May 2026</span><div><h3>M.S. in Data Science, New York University</h3>
+        <p>Research with <a href="https://seyiqi.github.io/" target="_blank" rel="noopener">Dr. Yiqiu (Artie) Shen</a> on multimodal deep learning for medical imaging. Graduated May 2026.</p></div></div>
+      <div class="step"><span class="when">May 2023</span><div><h3>B.A. in Mathematics and Statistics, University of Minnesota – Twin Cities</h3>
+        <p>Foundations in probability, statistical modeling and applied math.</p></div></div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact glass">
+    <div><h2>Let's <em>talk</em>.</h2>
+      <p>Open to research collaborations in medical AI.</p></div>
+    <a class="btn primary mail" href="mailto:hsuan-chih.chen@pennmedicine.upenn.edu">hsuan-chih.chen@pennmedicine.upenn.edu</a>
+  </section>
+</main>
+
+<footer><span>© 2026 Neil (Hsuan-Chih) Chen</span><span>Philadelphia, PA</span></footer>
+
+<script>
+// Specular highlight follows the pointer across each glass surface
+document.addEventListener('pointermove', e => {
+  document.querySelectorAll('.glass').forEach(el => {
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+}, { passive: true });
+
+// Click the headshot to see the full photo; click anywhere or press Esc to close
+const photo = document.getElementById('photo');
+document.getElementById('photo-open').addEventListener('click', () => photo.showModal());
+photo.addEventListener('click', () => photo.close());
+
+// Light / dark toggle, remembered per visitor
+const root = document.documentElement;
+try { const t = localStorage.getItem('theme'); if (t) root.dataset.theme = t; } catch (e) {}
+document.getElementById('theme').addEventListener('click', () => {
+  root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+});
+</script>
+</body>
+</html>
