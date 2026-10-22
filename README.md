@@ -9,8 +9,10 @@ Everything is in `index.html`:
 - **Headshot**: put your photo at `images/headshot.jpg`, then replace the
   `<div class="portrait glass" ...>...</div>` block with
   `<img class="portrait glass" src="images/headshot.jpg" alt="Neil Chen" style="object-fit:cover">`.
-- **CV / Google Scholar / GitHub buttons**: they are commented out in the hero
-  section (search for `Add links here`). Fill in the URLs and remove the `<!--` `-->`.
+- **CV**: the CV button links to `CV.pdf` in the repo root; replace that file to
+  update it.
+- **GitHub button**: commented out in the hero section (search for `Add links here`).
+  Fill in the URL and remove the `<!--` `-->`.
 - **Publications**: each project is one `<article class="pub">` block. Status
   pill classes: `s-rev` (under revision), `s-prep` (in preparation), `s-run` (ongoing).
 
