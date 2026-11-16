@@ -143,6 +143,7 @@ button.portrait:hover img{transform:scale(1.03)}
 .pub h3{margin:0;font-size:1.06rem;font-weight:500;letter-spacing:-.01em;text-wrap:balance}
 .pub h3 a{text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .3s}
 .pub h3 a:hover{background-size:100% 1px}
+.pub .author{grid-column:1;font:500 .74rem var(--f-mono);letter-spacing:.04em;color:var(--accent)}
 .pub .meta{grid-column:1;font-size:.88rem;color:var(--ink-2)}
 .pub .mods{grid-column:1;display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .pub .mods span{font:500 .68rem var(--f-mono);letter-spacing:.05em;padding:3px 9px;border-radius:999px;background:var(--glass-strong);color:var(--ink-2)}
@@ -150,6 +151,12 @@ button.portrait:hover img{transform:scale(1.03)}
 .status::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:7px;vertical-align:1px;background:currentColor}
 .s-rev{color:#c27a00}.s-prep{color:#2f5bd3}.s-run{color:#1f9d55}
 :root[data-theme="dark"] .s-rev{color:#ffc56b}:root[data-theme="dark"] .s-prep{color:#8fb0ff}:root[data-theme="dark"] .s-run{color:#5fdc93}
+/* ---------- modalities ---------- */
+.modalities{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.modality{padding:24px 22px;border-radius:var(--r-md);display:grid;gap:12px;align-content:start}
+.modality h3{margin:0;font-size:1.06rem;font-weight:500;letter-spacing:-.01em}
+.modality .mods{display:flex;flex-wrap:wrap;gap:6px}
+.modality .mods span{font:500 .68rem var(--f-mono);letter-spacing:.05em;padding:3px 9px;border-radius:999px;background:var(--glass-strong);color:var(--ink-2)}
 /* ---------- path ---------- */
 .path{padding:12px 30px}
 .step{display:grid;grid-template-columns:130px 1fr;gap:6px 24px;padding:22px 0;border-top:1px solid var(--rim-low)}
@@ -169,6 +176,7 @@ footer{max-width:980px;margin:28px auto 0;display:flex;justify-content:space-bet
 
 @media (max-width:820px){
   .tiles{grid-template-columns:1fr}
+  .modalities{grid-template-columns:1fr 1fr}
   .hero{grid-template-columns:1fr;padding:34px 26px}
   .portrait{width:150px;grid-row:1}
   .contact{grid-template-columns:1fr;padding:32px 26px}
@@ -179,6 +187,7 @@ footer{max-width:980px;margin:28px auto 0;display:flex;justify-content:space-bet
   nav a.link{padding:8px 10px}
   h2{font-size:2rem}
 }
+@media (max-width:480px){.modalities{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
@@ -192,6 +201,7 @@ footer{max-width:980px;margin:28px auto 0;display:flex;justify-content:space-bet
     <a class="link" href="#about">About</a>
     <a class="link" href="#research">Research</a>
     <a class="link" href="#work">Publications</a>
+    <a class="link" href="#modalities">Modalities</a>
     <a class="link" href="#path">Experience</a>
     <a class="link" href="#contact">Contact</a>
     <button id="theme" type="button" aria-label="Toggle light or dark mode">
@@ -275,33 +285,68 @@ footer{max-width:980px;margin:28px auto 0;display:flex;justify-content:space-bet
     <div class="pubs glass">
       <article class="pub">
         <h3><a href="https://www.medrxiv.org/content/10.64898/2026.03.04.26347460v2" target="_blank" rel="noopener">Diagnosis of Multiple Sclerosis Using Multimodal Deep Learning</a></h3>
+        <span class="author">4th author</span>
         <span class="status s-rev">Under revision · JAMA Neurology</span>
         <span class="meta">With Dr. Yiqiu Shen, NYU · Preprint on medRxiv · Lesion and normal-appearing white matter, international multicentre external validation</span>
         <div class="mods"><span>MRI</span><span>Clinical data</span></div>
       </article>
       <article class="pub">
         <h3>Multimodal and Longitudinal Breast Cancer Detection Using Imaging and Clinical Data</h3>
+        <span class="author">1st author</span>
         <span class="status s-prep">In preparation</span>
         <span class="meta">With Dr. Yiqiu Shen, NYU · Transformer over current and prior exams, externally validated across institutional cohorts and public benchmarks</span>
         <div class="mods"><span>FFDM (2D)</span><span>DBT (3D)</span><span>Ultrasound</span><span>Longitudinal</span><span>Clinical data</span></div>
       </article>
       <article class="pub">
         <h3>JEV-Agent: Explainable and Efficient Clinical Decisions from EHRs</h3>
+        <span class="author">5th author</span>
         <span class="status s-prep">In preparation</span>
         <span class="meta">With Dr. Tianyu Han, University of Pennsylvania · Traceable diagnostic work-ups from electronic health records at a fraction of the cost and latency of agent baselines</span>
         <div class="mods"><span>EHR</span><span>Agents</span><span>Explainability</span></div>
       </article>
       <article class="pub">
         <h3>Med-JEV: Structured Decision Learning from Medical Images</h3>
+        <span class="author">1st author</span>
         <span class="status s-run">Ongoing</span>
         <span class="meta">With Dr. Tianyu Han, University of Pennsylvania · Distilling JEV's structured decisions on radiology reports into question-specific supervision for medical VLM learning</span>
         <div class="mods"><span>Medical imaging</span><span>Radiology reports</span><span>Distillation from JEV</span><span>Structured decisions</span></div>
       </article>
       <article class="pub">
         <h3>RL Attacker: Indirect Prompt Injection in Medical Agents</h3>
+        <span class="author">1st author</span>
         <span class="status s-run">Ongoing</span>
         <span class="meta">With Dr. Tianyu Han, University of Pennsylvania · RL-trained attacker that injects instructions into retrieved content to steer a medical agent toward unintended behaviors, revealing vulnerabilities</span>
         <div class="mods"><span>Agents</span><span>Safety</span><span>Reinforcement learning</span></div>
+      </article>
+      <article class="pub">
+        <h3>Weight-Space Programming of Vision Transformers for Chest X-ray Diagnosis</h3>
+        <span class="author">1st author</span>
+        <span class="status s-run">Ongoing</span>
+        <span class="meta">With Dr. Tianyu Han, University of Pennsylvania · An LLM agent writes medical knowledge directly into ViT weights without gradient training, explaining every edit and building a circuit that can be read and checked, so the knowledge can carry over to new models</span>
+        <div class="mods"><span>Chest X-ray</span><span>Agents</span><span>Explainability</span><span>Knowledge transfer</span><span>Weight editing</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section id="modalities">
+    <span class="label">Imaging &amp; data</span>
+    <h2><em>Modalities</em></h2>
+    <div class="modalities">
+      <article class="modality glass">
+        <h3>Chest X-ray</h3>
+        <div class="mods"><span>Radiography</span></div>
+      </article>
+      <article class="modality glass">
+        <h3>Breast</h3>
+        <div class="mods"><span>FFDM</span><span>DBT</span><span>Ultrasound</span></div>
+      </article>
+      <article class="modality glass">
+        <h3>Brain</h3>
+        <div class="mods"><span>sMRI</span><span>dMRI</span></div>
+      </article>
+      <article class="modality glass">
+        <h3>EHR</h3>
+        <div class="mods"><span>Electronic health records</span></div>
       </article>
     </div>
   </section>
